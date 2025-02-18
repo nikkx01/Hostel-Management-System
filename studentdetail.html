@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .sub-nav {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .sub-nav .nav-link {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light main-nav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="logo.jpg" alt="Logo" width="44" height="33" class="d-inline-block align-top">
+                MSRIT Hostels
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>                
+                    <li class="nav-item">
+                        <a class="nav-link" href="viewAttendance.html">View Attendance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Student Details</a>
+                    </li>
+                    
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" id="logoutButton" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sub Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sub-nav">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#subNavbarNav" aria-controls="subNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="subNavbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="" id="addButton">ADD</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="listButton">LIST</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="updateButton">UPDATE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="deleteButton">DELETE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="billButton">BILL</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Area -->
+    <div class="container">
+        <div id="contentArea">
+            <!-- Default content for ADD button -->
+            <!-- <h2>Add Student</h2>
+            <p>Form to add student details will go here.</p> -->
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#logoutButton').click(function(event) {
+                event.preventDefault();
+                fetch('http://localhost:3000/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '/login.html';
+                    } else {
+                        alert('Logout failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+
+            //load student data
+            loadContent('addButton');
+            function loadContent(buttonId) {
+                switch(buttonId) {
+    case 'addButton':
+    $('#contentArea').html(`
+        <div class="container d-flex justify-content-center">
+            <div class="form-container">
+                <h2 class="text-center" style="color: #B22749;">Add Student</h2>
+                <form id="addStudentForm">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="usn" class="form-label">USN</label>
+                        <input type="text" class="form-control" id="usn" required value="1MS">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="tel" class="form-control" id="phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="roomNo" class="form-label">Room No</label>
+                        <input type="text" class="form-control" id="roomNo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="branch" class="form-label">Branch</label>
+                        <input type="text" class="form-control" id="branch" required placeholder="ISE, CSE, ECE">
+                    </div>
+                    <div class="mb-3">
+                        <label for="currentAcademicYear" class="form-label">Current Academic Year</label>
+                        <input type="number" class="form-control" id="currentAcademicYear" required placeholder="1, 2, 3" min="1" max="4">
+                    </div>
+                    <div class="mb-3">
+                        <label>Choose Hostel</label><br><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="hostel" id="hostel1" value="AryaBhatta">
+                            <label class="form-check-label" for="hostel1">AryaBhatta</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="hostel" id="hostel2" value="Fresher's Block">
+                            <label class="form-check-label" for="hostel2">Fresher's Block</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="hostel" id="hostel3" value="PG Hostel">
+                            <label class="form-check-label" for="hostel3">PG Hostel</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="hostel" id="hostel4" value="Boy's Home">
+                            <label class="form-check-label" for="hostel4">Boy's Home</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success id="addsubmit" style="background-color:#B22749;">Submit</button>
+                </form><br>
+            </div>
+        </div>
+    `);
+    break;
+
+                    case 'listButton':
+                        // Fetch student records from server and display in table
+                        $.ajax({
+                            url: 'http://localhost:3000/students',  // Update with your server endpoint
+                            method: 'GET',
+                            success: function(data) {
+                                let tableContent = `
+                                    <h2 class="text-center" style="color: #B22749;">Student List</h2>
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Name</th>
+                                                <th scope="col">USN</th>
+                                                <th scope="col">Phone</th>
+                                                <th scope="col">Room No</th>
+                                                <th scope="col">Branch</th>
+                                                <th scope="col">Year</th>
+                                                <th scope="col">Hostel</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                `;
+                                data.forEach(student => {
+                                    tableContent += `
+                                        <tr>
+                                            <td>${student.name}</td>
+                                            <td>${student.usn}</td>
+                                            <td>${student.phone}</td>
+                                            <td>${student.roomNo}</td>
+                                            <td>${student.branch}</td>
+                                            <td>${student.currentAcademicYear}</td>
+                                            <td>${student.hostel}</td>
+                                        </tr>
+                                    `;
+                                });
+                                tableContent += `</tbody></table>`;
+                                $('#contentArea').html(tableContent);
+                            },
+                            error: function(error) {
+                                $('#contentArea').html('<p>Error fetching student records. Please try again later.</p>');
+                            }
+                        });
+                        break;
+                    
+                        case 'updateButton':
+                        $('#contentArea').html(`
+                        <div class="container justify-content-center" style="max-width:550px">
+                        <div class="form-container">
+                            <h2 class="text-center" style="color: #B22749;">Update Student</h2>
+                            <form id="updateStudentForm">
+                                <div class="mb-3">
+                                    <label for="usn" class="form-label">USN</label>
+                                    <input type="text" class="form-control" id="usn" required>
+                                    <button type="button" class="btn btn-success mt-2" id="fetchButton">Fetch</button>
+                                </div>
+                                <style>#fetchButton { background-color: #B22749; }</style><br/>
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="roomNo" class="form-label">Room No</label>
+                                    <input type="text" class="form-control" id="roomNo" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="daysOfHolidays" class="form-label">Days Of Holidays</label>
+                                    <input type="number" class="form-control" id="daysOfHolidays" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary" style="background-color:#B22749">Update</button>
+                            </form><br> 
+                         </div>
+                        </div>
+                       
+                        `);
+                        
+                        // Handle fetch button click
+                        $('#fetchButton').click(function() {
+                            fetchStudentDetails();
+                        });
+
+                        // Handle form submission
+                        $('#updateStudentForm').submit(function(event) {
+                            event.preventDefault(); // Prevent default form submission
+                            updateStudentDetails();
+                        });
+                        break;
+
+                    case 'deleteButton':
+                    $('#contentArea').html(`
+                    <div class="container justify-content-center" style="max-width:550px">
+                        <div class="form-container">
+                        <h2 class="text-center" style="color: #B22749;">Delete Student</h2>
+                        <form id="deleteStudentForm">
+                            <div class="mb-3">
+                                <label for="usn" class="form-label">USN</label>
+                                <input type="text" class="form-control" id="usn" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </div>
+                    </div>
+                    `);
+
+                    // Add event listener for form submission
+                        $('#deleteStudentForm').submit(function(event) {
+                        event.preventDefault();
+                        const usn = $('#usn').val();
+                        deleteStudent(usn);
+                       });
+
+                    break;
+
+                    case 'billButton':
+                    $('#contentArea').html(`
+                    <div class="container justify-content-center" style="max-width:550px">
+                        <div class="form-container">
+                        <h2 class="text-center" style="color: #B22749;">Bill Student</h2>
+                        <form id="billStudentForm">
+            <div class="mb-3">
+                <label for="usn" class="form-label">USN</label>
+                <input type="text" class="form-control" id="usn" required>
+                <button type="button" class="btn btn-success mt-2" id="fetchHolidayButton">Generate Bill</button>
+            </div>
+            <style>#fetchHolidayButton { background-color: #B22749; }</style><br/>
+            <div class="mb-3">
+                <label for="daysOfHolidays" class="form-label">Days of Holidays</label>
+                <input type="number" class="form-control" id="daysOfHolidays" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="totalFee" class="form-label">Total Fee Refund</label>
+                <input type="text" class="form-control" id="totalFee" readonly>
+            </div>
+        </form><br>
+        </div>
+        </div>
+    `);
+
+    const perDayCost = 250; // Example cost per day
+
+    // Handle fetch holidays button click
+    $('#fetchHolidayButton').click(function() {
+        const usn = $('#usn').val();
+        if (usn) {
+            $.ajax({
+                url: `http://localhost:3000/getStudent/${usn}`,  // Update with your server endpoint
+                method: 'GET',
+                success: function(student) {
+                    if (student) {
+                        $('#daysOfHolidays').val(student.daysOfHolidays);
+                        const totalFee = student.daysOfHolidays * perDayCost;
+                        $('#totalFee').val(`INR ${totalFee}`);
+                    } else {
+                        $('#daysOfHolidays').val('');
+                        $('#totalFee').val('');
+                        alert('Student not found');
+                    }
+                },
+                error: function(error) {
+                    alert('Error fetching student details. Please try again later.');
+                }
+            });
+        } else {
+            alert('Please enter a valid USN');
+        }
+    });
+    break;
+
+    }
+}
+
+            //Function AJAX for fetching student details based on USN
+            function fetchStudentDetails() {
+                const usn = $('#usn').val();
+
+                $.ajax({
+                    url: `http://localhost:3000/getStudent/${usn}`,
+                    method: 'GET',
+                    success: function(data) {
+                // Populate form fields with fetched data
+                        $('#name').val(data.name);
+                        $('#phone').val(data.phone);
+                        $('#roomNo').val(data.roomNo);
+                        $('#daysOfHolidays').val(data.daysOfHolidays);
+                    },
+                    error: function(error) {
+                        alert('Error fetching student details. Please check the USN and try again.');
+                    }
+                });
+            }
+
+    // Function to update student details
+    function updateStudentDetails() {
+        const usn = $('#usn').val();
+        const updatedData = {
+            name: $('#name').val(),
+            phone: $('#phone').val(),
+            roomNo: $('#roomNo').val(),
+            daysOfHolidays: $('#daysOfHolidays').val()
+        };
+
+        $.ajax({
+            url: `http://localhost:3000/updateStudent/${usn}`,
+            method: 'PUT',
+            contentType: 'application/json',
+            data: JSON.stringify(updatedData),
+            success: function(response) {
+                alert('Student updated successfully!');
+            },
+            error: function(error) {
+                alert('Error updating student. Please try again.');
+            }
+        });
+    }
+
+            function deleteStudent(usn) {
+            $.ajax({
+            url: `http://localhost:3000/students/${usn}`,  // Adjust the URL to your endpoint
+            method: 'DELETE',
+            success: function(response) {
+                alert('Student deleted successfully');
+                $('#deleteStudentForm')[0].reset();  // Clear form fields after successful deletion
+            },
+            error: function(error) {
+                console.error('Error deleting student:', error);
+                alert('Failed to delete student');
+            }
+        });
+    }
+
+            // Event listeners for navigation buttons
+            $('#addButton').click(function() {
+                loadContent('addButton');
+            });
+            $('#listButton').click(function() {
+                loadContent('listButton');
+            });
+            $('#updateButton').click(function() {
+                loadContent('updateButton');
+            });
+            $('#deleteButton').click(function() {
+                loadContent('deleteButton');
+            });
+            $('#billButton').click(function() {
+                loadContent('billButton');
+            });
+        });
+    </script>
+
+    <!-- javascript function to add  student details to the database -->
+    <script>
+        $(document).ready(function() {
+            function addStudent() {
+                var name = $('#name').val();
+                var usn = $('#usn').val();
+                var phone = $('#phone').val();
+                var roomNo = $('#roomNo').val();
+                var branch = $('#branch').val();
+                var currentAcademicYear = $('#currentAcademicYear').val();
+                var hostel = $("input[name='hostel']:checked").val();
+    
+                if (!name || !usn || !phone || !roomNo || !branch || !currentAcademicYear || !hostel) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+    
+                $.ajax({
+                    url: 'http://localhost:3000/addStudent',  // Update the URL to include localhost and port if necessary
+                    method: 'POST',
+                    contentType: 'application/json',  // Ensure content type is JSON
+                    data: JSON.stringify({
+                        name: name,
+                        usn: usn,
+                        phone: phone,
+                        roomNo: roomNo,
+                        branch: branch,
+                        currentAcademicYear: currentAcademicYear,
+                        hostel: hostel
+                    }),
+                    success: function(response) {
+                        alert('Student added successfully');
+                        $('#addStudentForm')[0].reset();  // Clear form fields after successful submission
+                    },
+                    error: function(error) {
+                        console.error('Error adding student:', error);
+                        alert('Failed to add student');
+                    }
+                });
+            }
+    
+            // Handle form submission for adding a student
+            $('#addStudentForm').submit(function(event) {
+                event.preventDefault();
+                addStudent();
+            });
+            
+        });
+    </script>
+</body>
+</html>

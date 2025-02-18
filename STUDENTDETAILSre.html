@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 20px;
+        }
+        .sub-nav {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .sub-nav .nav-link {
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light main-nav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="logo.jpg" alt="Logo" width="44" height="33" class="d-inline-block align-top">
+                MSRIT Hostels
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>                
+                    <li class="nav-item">
+                        <a class="nav-link" href="viewAttendance.html">View Attendance</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Student Details</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" id="logoutButton" href="#">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sub Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sub-nav">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#subNavbarNav" aria-controls="subNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="subNavbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="" id="addButton">ADD</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="listButton">LIST</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="updateButton">UPDATE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="deleteButton">DELETE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="billButton">BILL</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content Area -->
+    <div class="container">
+        <div id="contentArea">
+            <!-- Default content for ADD button -->
+            <h2>Add Student</h2>
+            <form id="addStudentForm">
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="usn" class="form-label">USN</label>
+                    <input type="text" class="form-control" id="usn" required value="1MS">
+                </div>
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="tel" class="form-control" id="phone" required>
+                </div>
+                <div class="mb-3">
+                    <label for="roomNo" class="form-label">Room No</label>
+                    <input type="text" class="form-control" id="roomNo" required>
+                </div>
+                <div class="mb-3">
+                    <label for="branch" class="form-label">Branch</label>
+                    <input type="text" class="form-control" id="branch" required placeholder="ISE, CSE, ECE">
+                </div>
+                <div class="mb-3">
+                    <label for="currentAcademicYear" class="form-label">Current Academic Year</label>
+                    <input type="number" class="form-control" id="currentAcademicYear" required placeholder="1, 2, 3" min="1" max="4">
+                </div>
+                <div class="mb-3">
+                    <label>Choose Hostel</label><br><br>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="hostel" id="hostel1" value="AryaBhatta">
+                        <label class="form-check-label" for="hostel1">AryaBhatta</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="hostel" id="hostel2" value="Fresher's Block">
+                        <label class="form-check-label" for="hostel2">Fresher's Block</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="hostel" id="hostel3" value="PG Hostel">
+                        <label class="form-check-label" for="hostel3">PG Hostel</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="hostel" id="hostel4" value="Boy's Home">
+                        <label class="form-check-label" for="hostel4">Boy's Home</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form><br>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#logoutButton').click(function(event) {
+                event.preventDefault();
+                fetch('http://localhost:3000/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        window.location.href = '/login.html';
+                    } else {
+                        alert('Logout failed');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+
+            // Load default content (Add Student form)
+            loadContent('addButton');
+
+            function loadContent(buttonId) {
+                switch(buttonId) {
+                    case 'addButton':
+                        $('#contentArea').html(`
+                            <h2>Add Student</h2>
+                            <form id="addStudentForm">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="usn" class="form-label">USN</label>
+                                    <input type="text" class="form-control" id="usn" required value="1MS">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="roomNo" class="form-label">Room No</label>
+                                    <input type="text" class="form-control" id="roomNo" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="branch" class="form-label">Branch</label>
+                                    <input type="text" class="form-control" id="branch" required placeholder="ISE, CSE, ECE">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="currentAcademicYear" class="form-label">Current Academic Year</label>
+                                    <input type="number" class="form-control" id="currentAcademicYear" required placeholder="1, 2, 3" min="1" max="4">
+                                </div>
+                                <div class="mb-3">
+                                    <label>Choose Hostel</label><br><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="hostel" id="hostel1" value="AryaBhatta">
+                                        <label class="form-check-label" for="hostel1">AryaBhatta</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="hostel" id="hostel2" value="Fresher's Block">
+                                        <label class="form-check-label" for="hostel2">Fresher's Block</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="hostel" id="hostel3" value="PG Hostel">
+                                        <label class="form-check-label" for="hostel3">PG Hostel</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="hostel" id="hostel4" value="Boy's Home">
+                                        <label class="form-check-label" for="hostel4">Boy's Home</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form><br>
+                        `);
+                        break;
+                    case 'listButton':
+                        $('#contentArea').html('<h2>List Students</h2><p>Loading student list...</p>');
+                        // Add logic to load and display student list from the server
+                        break;
+                    case 'updateButton':
+                        $('#contentArea').html('<h2>Update Student</h2><p>Loading update form...</p>');
+                        // Add logic to load and display student update form from the server
+                        break;
+                    case 'deleteButton':
+                        $('#contentArea').html('<h2>Delete Student</h2><p>Loading delete form...</p>');
+                        // Add logic to load and display student delete form from the server
+                        break;
+                    case 'billButton':
+                        $('#contentArea').html('<h2>Generate Bill</h2><p>Loading billing details...</p>');
+                        // Add logic to load and display billing details from the server
+                        break;
+                }
+            }
+
+            $('#addButton').click(function(event) {
+                event.preventDefault();
+                loadContent('addButton');
+            });
+
+            $('#listButton').click(function(event) {
+                event.preventDefault();
+                loadContent('listButton');
+            });
+
+            $('#updateButton').click(function(event) {
+                event.preventDefault();
+                loadContent('updateButton');
+            });
+
+            $('#deleteButton').click(function(event) {
+                event.preventDefault();
+                loadContent('deleteButton');
+            });
+
+            $('#billButton').click(function(event) {
+                event.preventDefault();
+                loadContent('billButton');
+            });
+        });
+    </script>
+</body>
+</html>
