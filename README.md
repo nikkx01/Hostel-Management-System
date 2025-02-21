@@ -1,5 +1,5 @@
-College Hostel Attendance System
-College Hostel Attendance System is a web-based application designed to streamline attendance management for college hostels. This system provides an easy-to-use interface for students to submit their attendance status and allows administrators to view and manage attendance records efficiently.
+Hostel Attendance System
+Hostel Attendance System is a web-based application designed to streamline attendance management for college hostels. This system provides an easy-to-use interface for students to submit their attendance status and allows administrators to view and manage attendance records efficiently.
 
 Features
 User-friendly Interface: The system offers a simple and intuitive interface for students to submit their attendance status (present or absent).
