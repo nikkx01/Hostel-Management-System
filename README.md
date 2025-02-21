@@ -1,4 +1,5 @@
 Hostel Attendance System
+
 Hostel Attendance System is a web-based application designed to streamline attendance management for college hostels. This system provides an easy-to-use interface for students to submit their attendance status and allows administrators to view and manage attendance records efficiently.
 
 Features
@@ -12,7 +13,7 @@ Backend: Node.js, Express.js
 Database: MongoDB
 Other: CORS for handling cross-origin requests
 How to Use
-Clone the Repository: Clone this repository to your local machine using git clone https://github.com/your-username/college-hostel-attendance-system.git.
+Clone the Repository: Clone this repository to your local machine using git clone https://github.com/your-username/hostel-attendance-system.git.
 Install Dependencies: Navigate to the project directory and install the necessary dependencies using npm or yarn: npm install or yarn install.
 Set up MongoDB: Set up a MongoDB database and configure the connection URI in server.js.
 Start the Server: Start the server using node server.js.
